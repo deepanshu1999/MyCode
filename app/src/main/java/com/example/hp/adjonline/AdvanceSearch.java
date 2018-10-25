@@ -119,7 +119,7 @@ public class AdvanceSearch extends AppCompatActivity {
         try {
                 //Create an HTTP client
                 URL url = new URL(strings[0]);
-
+                Log.e("FILTERCALL",url.toString());
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(50000 /* milliseconds */);
                 conn.setConnectTimeout(50000 /* milliseconds */);

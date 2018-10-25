@@ -33,6 +33,7 @@ public class Viewer extends AppCompatActivity {
     Adapter  mAdapter;
     String res;
     JSONArray jArray;
+    String inputtext;
     Toolbar toolbar;
     public static final int RESULT_OK=1;
     ImageButton filterButton;
@@ -41,6 +42,7 @@ public class Viewer extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent datar) {
         super.onActivityResult(requestCode, resultCode, datar);
         String t1, t2, t3;
+
         filterButton.setVisibility(View.VISIBLE);
         data.clear();
         Log.e("Entries After",Integer.toString(AdvanceSearchFilter.posts.size()));
@@ -76,6 +78,7 @@ public class Viewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewer);
+
         recyclerView = findViewById(R.id.viewerid);
         toolbar = findViewById(R.id.result);
         filterButton=findViewById(R.id.filterButton);
@@ -199,6 +202,8 @@ public class Viewer extends AppCompatActivity {
 //                recyclerViewPositionHelper.
         } else if (Tag.equals(AdvanceSearch.ADVANCESEARCH)) {
             String t1, t2, t3;
+            inputtext=getIntent().getStringExtra("INPUTTEXT");
+            Log.e("SEARCHTEXTVIEWER",inputtext);
             filterButton.setVisibility(View.VISIBLE);
             //Log.e("MAGGU", "WHy i am herer");
             Log.e("Entries Before",Integer.toString(AdvanceSearch.posts.size()));
@@ -237,6 +242,8 @@ public class Viewer extends AppCompatActivity {
                             if (Tag.equals(AdvanceSearch.ADVANCESEARCH)) {
                                 Log.d("ABS","BC yaha kaise a gya");
                                 link = AdvanceSearch.posts.get(position).link;
+                                intentBundle.putExtra("CALLER",AdvanceSearch.ADVANCESEARCH);
+                                intentBundle.putExtra("INPUTTEXT",inputtext);
                             }
                             else if (Tag.equals(PartySearch.PARTYSEARCH)) {
                                 Log.d("POSSTAUS","I am here");

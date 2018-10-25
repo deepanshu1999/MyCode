@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -32,11 +33,16 @@ public class activity_full_judgement extends AppCompatActivity {
     private static final String TAG = "activity_full_judgement";
     private static final int PERMISSION_REQUEST_CODE = 1;
     public ImageButton imageButton;
+    String searchtext;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getIntent().hasExtra("CALLER") && getIntent().getStringExtra("CALLER").equals(AdvanceSearch.ADVANCESEARCH)){
+        searchtext=getIntent().getStringExtra("INPUTTEXT");
+        Log.e("SEARCHTEXT",searchtext);
+        }
         setContentView(R.layout.activity_full_judgement);
         imageButton=findViewById(R.id.shareButton);
         Intent intentExtra=getIntent();
@@ -67,11 +73,13 @@ public class activity_full_judgement extends AppCompatActivity {
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setUseWideViewPort(true);
+        webView.getSettings().setTextSize(WebSettings.TextSize.LARGEST);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient(){
             final ProgressDialog progDailog = new ProgressDialog(activity_full_judgement.this,
                     R.style.AppTheme_Dark_Dialog);
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 progDailog.show();
@@ -84,7 +92,7 @@ public class activity_full_judgement extends AppCompatActivity {
         });
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
+        //webView.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
 
         if (Build.VERSION.SDK_INT >= 23)
         {
@@ -161,6 +169,11 @@ public class activity_full_judgement extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl(mera_link);
+        if(getIntent().hasExtra("CALLER")) {
+
+            Log.e("AMI","Here");
+            webView.findAllAsync(searchtext);
+        }
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
