@@ -262,6 +262,25 @@ public class Viewer extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
+                            if (!Tag.equals(AdvanceSearch.ADVANCESEARCH)&&!Tag.equals(PartySearch.PARTYSEARCH)) {
+                                String partyName = " ";
+                                try {
+                                    msjsonobject = jArray.getJSONObject(position);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    partyName = msjsonobject.getString("2");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                if (partyName != " ")
+                                    intentBundle.putExtra("partyname", partyName);
+                            }
+                            else
+                            {
+                                //insert the code to get party name in advance search and party search here
+                            }
                             intentBundle.putExtra("link", link);
 
                             //intentBundle.putStringArrayListExtra("dimension2", ((ArrayList) dimension2.get(position))); // Very Very Important To Understand //

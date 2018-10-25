@@ -181,9 +181,14 @@ public class activity_full_judgement extends AppCompatActivity {
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 String shareBody = link;
-                String shareSubject =subject;
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject);
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                String partyName=" ";
+                String shareSubject ="Looking for Allahabad High Court Judgements. Subscribe ADJ Online-Easily Accessible Legal Database and Download ADJ Online App.";
+               if(getIntent().hasExtra("partyname"))
+               {
+                   partyName=getIntent().getStringExtra("partyname");
+               }
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, partyName);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,shareSubject+"\n\n\n"+ shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
             }
