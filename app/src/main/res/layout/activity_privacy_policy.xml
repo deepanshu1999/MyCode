@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PrivacyPolicyActivity">
+
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/PrivacyPolicy"
+        />
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="General information\n"
+            android:textColor="@color/sendotp_grey"
+            android:textSize="24sp"/>
+
+         <TextView  
+             android:layout_width="match_parent"  
+             android:layout_height="wrap_content"  
+             android:textColor="@color/sendotp_medium_grey"  
+             android:textSize="16sp"  
+             android:text="Welcome to our Privacy Policy page! When you use our services, you trust us with your information. This Privacy Policy is meant to help you understand what data we collect, why we collect it, and what we do with it. When you share information with us, we can make our services even better for you. For instance, we can show you more relevant search results and ads. As you use our services, we want you to be clear how we’re using information and the ways in which you can protect your privacy. This is important; we hope you will take time to read it carefully. Remember, you can find controls to manage your information and protect your privacy and security. We’ve tried to keep it as simple as possible."
+             android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Right to access, correct and delete data and to object to data processing\n"
+        android:textColor="@color/sendotp_grey"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/sendotp_medium_grey"
+        android:textSize="16sp"
+        android:text="Our customers have the right to access, correct and delete personal data relating to them. The Company makes every effort to put in place suitable precautions to safeguard the security and privacy of personal data, and to prevent it from being altered, corrupted, destroyed or accessed by unauthorized third parties. However, the Company does not control each and every risk related to the use of the Internet, and therefore warns the Site users of the potential risks involved in the functioning and use of the Internet. The Site may include links to other web sites or other internet sources. As the Company cannot control these web sites and external sources, the Company cannot be held responsible for the provision or display of these web sites and external sources, and may not be held liable for the content, advertising, products, services or any other material available on or from these web sites or external sources.\n"
+        android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="How we use information\n"
+        android:textColor="@color/sendotp_grey"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/sendotp_medium_grey"
+        android:textSize="16sp"
+        android:text="ADJ Online uses your personal information for specific purposes only.
+
+The personal information you provide to us when using the Web Site, such as your name, postal, e-mail address or telephone number will be kept confidential and used to support your relationship with adjonline.com, to notify you of special offers, updated information and new products and services from adjonline.com, or offers from third parties that we think may be of interest to you. Agents or contractors of adjonline.com who are given access to your personal information will be required to keep the information confidential and not use it for any other purpose other than to carry out the services they are performing for adjonline.com.
+
+adjonline.com may enhance or merge your information collected at its Web Site with data from third parties for purposes of marketing products or services to you.
+
+With respect to network advertising companies (companies that manage and provide advertising for numerous unrelated companies), to the extent that adjonline.com utilizes such advertising companies to provide advertisements on the Web Site, adjonline.com may provide them with your Sign in Name and any demographic information about you that we collect. Those advertising companies may combine that data with non-personally identifiable data collected by the advertising company from your computer, solely for the purpose of delivering on our Web Site, advertisements that are targeted to you.
+
+Circumstances may arise where we are required to disclose your personal information to third parties for purposes other than to support your customer relationship with adjonline.com, such as in connection with a corporate divestiture or dissolution where we sell all or a portion of our business or assets (including our associated customer lists containing your personal information), or if disclosure is required by law or is pertinent to judicial or governmental investigations or proceedings.
+
+We will send you information about our various products and services, or other products and services we feel may be of interest to you. Only adjonline.com (or agents or contractors working on behalf of adjonline.com and under confidentiality agreements) will send you these direct mailings."
+        android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cookies\n"
+        android:textColor="@color/sendotp_grey"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/sendotp_medium_grey"
+        android:textSize="16sp"
+        android:text="Cookies are files with small amount of data, which may include an anonymous unique identifier. Cookies are sent to your browser from a web site and stored on your computer's hard drive.
+
+Like many other websites, we use cookies to collect information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our website to their full potential."
+        android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Security\n"
+        android:textColor="@color/sendotp_grey"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/sendotp_medium_grey"
+        android:textSize="16sp"
+        android:text="The security of your Personal Information is important to us, but remember that no method of transmission over the Internet, or method of electronic storage, is 100% secure. While we strive to use commercially acceptable means to protect your Personal Information, we cannot guarantee its absolute security."
+        android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Changes To This Privacy Policy\n"
+        android:textColor="@color/sendotp_grey"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/sendotp_medium_grey"
+        android:textSize="16sp"
+        android:text="Revisions to this policy adjonline.com reserves the right to revise, amend or modify this policy at any time and in any manner it pleases. Any change or revision will be posted here."
+        android:padding="5dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contact Us\n"
+        android:textColor="@color/sendotp_grey"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/sendotp_medium_grey"
+        android:textSize="16sp"
+        android:text="If you have any questions about this Privacy Policy, please contact us:\n
+
+Email: info@adjonline.com \nPhone:7706833426\n"
+        android:padding="5dp"/>
+
+
+</LinearLayout>
+    </ScrollView>
+</LinearLayout>

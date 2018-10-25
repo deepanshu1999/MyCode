@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/citsearch"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Citation Search" />
+        <Button
+            android:id="@+id/datesearch"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Date Search" />
+        <Button
+            android:id="@+id/advsearch"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Advance Search" />
+        <Button
+            android:id="@+id/partysearch"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Party Search" />
+    </LinearLayout>
+
+
+</FrameLayout>

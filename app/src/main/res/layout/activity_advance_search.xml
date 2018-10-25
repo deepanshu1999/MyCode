@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdvanceSearch">
+    <include layout="@layout/toolbar"
+        android:id="@+id/advtoolbar"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter a phrase..."
+        android:background="@drawable/editetxt_background"
+        android:padding="10dp"
+        android:layout_below="@id/advtoolbar"
+        android:layout_margin="10dp"
+        android:id="@+id/advancesearchgetter"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/advancesearchgetter"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="SEARCH"
+        android:textColor="#FFFFFF"
+        android:id="@+id/advancesearchbutton"/>
+
+
+</RelativeLayout>
