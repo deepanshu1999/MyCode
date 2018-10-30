@@ -97,6 +97,7 @@ public class judgement_activity_1 extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                intent.putExtra("partyname",getIntent().getStringExtra("partyname"));
                 startActivity(intent);
             }
         });
@@ -110,7 +111,7 @@ public class judgement_activity_1 extends AppCompatActivity {
         }
         final String l2=link;
 
-        subject = "Looking for Allahabad High Court Judgements. Subscribe ADJ Online-Eaily Accessible Legal Database and Download ADJ Online App.";
+        subject = "Looking for Allahabad High Court Judgements. Subscribe ADJ Online-Easily Accessible Legal Database and Download ADJ Online App.";
 
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,8 +138,8 @@ public class judgement_activity_1 extends AppCompatActivity {
         }
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        // String shareSubject = subject;
-        // sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+        String shareSubject = getIntent().getStringExtra("partyname");
+         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject);
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, subject+"\n\n\n"+shareBody);
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }

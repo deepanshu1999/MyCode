@@ -140,6 +140,11 @@ public class fragment1 extends Fragment {
                             e.printStackTrace();
                         }
                         intentBundle.putExtra("jsonobj",mjsonobject.toString());
+                        try {
+                            intentBundle.putExtra("partyname",mjsonobject.getString("18"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         //intentBundle.putStringArrayListExtra("dimension2", ((ArrayList) dimension2.get(position))); // Very Very Important To Understand //
                         startActivity(intentBundle);
                         //Toast.makeText(getContext(),"hi",Toast.LENGTH_LONG).show();

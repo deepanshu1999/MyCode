@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tab.getPosition()==3)
                 {
 
-                    mTitle.setText("    Allahabad Daily Judgments");
+                    mTitle.setText("Allahabad Daily Judgments");
                     mTitle.setTextAppearance(R.style.nimbusromno9lreg);
                     drawer.openDrawer(Gravity.LEFT);
                 }
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(tab.getPosition()==0)
                 {
-                    mTitle.setText("    Allahabad Daily Judgments");
+                    mTitle.setText("Allahabad Daily Judgments");
                     mTitle.setTextAppearance(R.style.nimbusromno9lreg);
                 }
             }
