@@ -1,13 +1,20 @@
 package com.example.hp.adjonline;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -15,23 +22,34 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hp.Common.Common;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     public ViewPagerAdapter adapter;
     NavigationView navigationView;
     Toolbar toolbar;
+    BroadcastReceiver mRegistrationBroadcastReceiver;
     private DrawerLayout drawer;
     public TextView mTitle;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+
     private int[] tabIcons = {
             R.drawable.ic_action_home,
             R.drawable.ic_action_search,
@@ -64,8 +82,10 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseApp.initializeApp(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseMessaging id=FirebaseMessaging.getInstance();
         drawer=findViewById(R.id.drawer_layout);
         tabLayout= findViewById(R.id.tabs);
         viewPager =findViewById(R.id.viewpager);
@@ -134,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        id.subscribeToTopic("ADJ");
     }
 
 
@@ -251,4 +273,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }}
+
+
+    }
+    private void registrationNotification() {
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if(intent.getAction().equals(Common.STR_PUSH)){
+                    String message = intent.getStringExtra("message");
+                    showNotification("EDMTDev",message);
+                }
+            }
+        };
+
+    }
+    private void showNotification(String title, String message) {
+        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext());
+        builder.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.adjapplogo)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setContentIntent(contentIntent);
+
+        NotificationManager notificationManager = (NotificationManager)getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(new Random().nextInt(),builder.build());
+
+    }
+
+
+
+}

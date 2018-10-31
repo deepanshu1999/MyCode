@@ -10,7 +10,6 @@ public class MyFirebaseIdService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
         super.onTokenRefresh();
-
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         sendRegistrationToServer(refreshedToken);
     }

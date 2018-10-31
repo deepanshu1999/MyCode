@@ -8,12 +8,10 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.example.hp.adjonline.LoginActivity;
 import com.example.hp.adjonline.R;
-//import com.sourcey.adjonline.LoginActivity;
-//import com.sourcey.adjonline.R;
-
 public class AlarmReceiver extends BroadcastReceiver {
 
 
@@ -21,7 +19,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         long when = System.currentTimeMillis();
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-
+        Log.e("IGOT","IGOT HERE WHEN BACK");
         Intent notificationIntent = new Intent(context, LoginActivity.class );
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
