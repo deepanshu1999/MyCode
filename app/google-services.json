@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "107896676271",
+    "firebase_url": "https://adj-online-773e2.firebaseio.com",
+    "project_id": "adj-online-773e2",
+    "storage_bucket": "adj-online-773e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107896676271:android:cc14fdb76ce4a9f1",
+        "android_client_info": {
+          "package_name": "com.example.hp.adjonline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107896676271-0jjvlrj6lpls1i8if3ef9lngia8f6tdh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hp.adjonline",
+            "certificate_hash": "f7c41400661f180a1413f6f385a0c29810f0239d"
+          }
+        },
+        {
+          "client_id": "107896676271-bdedc2tr903o5i8pebgrsvbrft1o615d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY9sLcxpGvPgMLfpNOXQyuJaW77OZvUxY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107896676271-bdedc2tr903o5i8pebgrsvbrft1o615d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

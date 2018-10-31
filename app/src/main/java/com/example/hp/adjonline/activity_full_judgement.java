@@ -169,11 +169,13 @@ public class activity_full_judgement extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl(mera_link);
-        
-        if(getIntent().hasExtra("CALLER")) {
+        String[] str=searchtext.split(" ");
+        for(int i=0;i<str.length;i++) {
+            if (getIntent().hasExtra("CALLER")) {
 
-            Log.e("AMI","Here");
-            webView.findAllAsync(searchtext);
+                Log.e("AMI", "Here");
+                webView.findAllAsync(str[i]);
+            }
         }
 
         imageButton.setOnClickListener(new View.OnClickListener() {
