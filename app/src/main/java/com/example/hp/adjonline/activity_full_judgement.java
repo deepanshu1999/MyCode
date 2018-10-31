@@ -169,6 +169,7 @@ public class activity_full_judgement extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl(mera_link);
+        
         if(getIntent().hasExtra("CALLER")) {
 
             Log.e("AMI","Here");
