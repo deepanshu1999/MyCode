@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.example.hp.adjonline"
+        applicationId "com.example.adjonline.mojitolabs"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1

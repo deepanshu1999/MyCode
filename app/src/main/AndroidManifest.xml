@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.hp.adjonline">
+    package="com.example.adjonline.mojitolabs">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,32 +11,32 @@
         android:roundIcon="@mipmap/adjapplogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.adjonline.mojitolabs.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="com.example.hp.BroadcastReceiver.MyFirebaseMessagingService">
+        <service android:name="com.example.adjonline.BroadcastReceiver.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".SignupActivity"/>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".judgement_activity_1" />
-        <activity android:name=".activity_full_judgement" />
-        <activity android:name=".AboutUsActivity" />
-        <activity android:name=".PrivacyPolicyActivity" />
-        <activity android:name=".SettingActivity"/>
-        <activity android:name=".CitationSearch"/>
-        <activity android:name=".AdvanceSearch"/>
-        <activity android:name=".DateSearch"/>
-        <activity android:name=".PartySearch"/>
-        <activity android:name=".Viewer"/>
-        <activity android:name=".AdvanceSearchFilter">
+        <activity android:name="com.example.adjonline.mojitolabs.SignupActivity"/>
+        <activity android:name="com.example.adjonline.mojitolabs.LoginActivity" />
+        <activity android:name="com.example.adjonline.mojitolabs.judgement_activity_1" />
+        <activity android:name="com.example.adjonline.mojitolabs.activity_full_judgement" />
+        <activity android:name="com.example.adjonline.mojitolabs.AboutUsActivity" />
+        <activity android:name="com.example.adjonline.mojitolabs.PrivacyPolicyActivity" />
+        <activity android:name="com.example.adjonline.mojitolabs.SettingActivity"/>
+        <activity android:name="com.example.adjonline.mojitolabs.CitationSearch"/>
+        <activity android:name="com.example.adjonline.mojitolabs.AdvanceSearch"/>
+        <activity android:name="com.example.adjonline.mojitolabs.DateSearch"/>
+        <activity android:name="com.example.adjonline.mojitolabs.PartySearch"/>
+        <activity android:name="com.example.adjonline.mojitolabs.Viewer"/>
+        <activity android:name="com.example.adjonline.mojitolabs.AdvanceSearchFilter">
 
         </activity>
     </application>
