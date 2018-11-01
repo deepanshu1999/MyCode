@@ -8,6 +8,37 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:107896676271:android:2b5486b3aed53448",
+        "android_client_info": {
+          "package_name": "com.example.adjonline.mojitolabs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107896676271-bdedc2tr903o5i8pebgrsvbrft1o615d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY9sLcxpGvPgMLfpNOXQyuJaW77OZvUxY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:107896676271:android:cc14fdb76ce4a9f1",
         "android_client_info": {
           "package_name": "com.example.hp.adjonline"
