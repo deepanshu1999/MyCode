@@ -1,12 +1,19 @@
 package com.adjonline.mojitolabs;
+import android.annotation.TargetApi;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintJob;
+import android.print.PrintManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +30,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Method;
 
@@ -30,13 +38,35 @@ public class activity_full_judgement extends AppCompatActivity {
     private Toolbar toolbar;
     private String link;
     private WebView webView;
-
+    String mera_link=null;
+    ImageButton printButton;
     private int mCurrentSearchIndex = -1;
 
     private static final String TAG = "activity_full_judgement";
     private static final int PERMISSION_REQUEST_CODE = 1;
     public ImageButton imageButton;
     String searchtext;
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public  void createWebPagePrint(WebView webView) {
+        PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+        PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter();
+        String jobName = "ADJ" + " Document";
+        PrintAttributes.Builder builder = new PrintAttributes.Builder();
+        builder.setMediaSize(PrintAttributes.MediaSize.ISO_A4);
+        PrintJob printJob = printManager.print(jobName, printAdapter, builder.build());
+
+        if(printJob.isCompleted()){
+            Toast.makeText(getApplicationContext(),"Printed", Toast.LENGTH_LONG).show();
+
+        }
+        else if(printJob.isFailed()) {
+            Toast.makeText(getApplicationContext(), "Printing Cancelled", Toast.LENGTH_LONG).show();
+            }
+        // Save the job object for later status checking
+    }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -48,6 +78,7 @@ public class activity_full_judgement extends AppCompatActivity {
         }
         setContentView(R.layout.activity_full_judgement);
         imageButton=findViewById(R.id.shareButton);
+        printButton=findViewById(R.id.printButton);
         Intent intentExtra=getIntent();
         link=intentExtra.getStringExtra("link");
         final String subject=intentExtra.getStringExtra("subject");
@@ -70,7 +101,36 @@ public class activity_full_judgement extends AppCompatActivity {
                 finish();
             }
         });
+        printButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onClick(View v) {
+                WebView web2=new WebView(activity_full_judgement.this);
+                web2.loadUrl(mera_link);
+                web2.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
+                web2.setWebViewClient(new WebViewClient(){
+                    final ProgressDialog progDailog = new ProgressDialog(activity_full_judgement.this,
+                            R.style.AppTheme_Dark_Dialog);
+                    @Override
+                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                        super.onPageStarted(view, url, favicon);
+                        progDailog.setMessage("Loading...");
+                        progDailog.setIndeterminate(true);
+                        progDailog.show();
+                    }
+
+                    @Override
+                    public void onPageFinished(WebView view, String url) {
+                        super.onPageFinished(view, url);
+                        progDailog.dismiss();
+                    }
+                });
+                createWebPagePrint(web2);
+
+            }
+        });
         webView =findViewById(R.id.fullJudgment);
+        //webView.setInitialScale(200);
         WebSettings webSettings = webView.getSettings();
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setLoadWithOverviewMode(true);
@@ -84,6 +144,14 @@ public class activity_full_judgement extends AppCompatActivity {
                     R.style.AppTheme_Dark_Dialog);
 
             @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                progDailog.setMessage("Loading...");
+                progDailog.setIndeterminate(true);
+                progDailog.show();
+            }
+
+            @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 progDailog.show();
                 return super.shouldOverrideUrlLoading(view, url);
@@ -92,8 +160,10 @@ public class activity_full_judgement extends AppCompatActivity {
             public void onPageFinished(WebView view, final String url) {
                 progDailog.dismiss();
 
+
             }
         });
+
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
         //webView.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
@@ -167,10 +237,11 @@ public class activity_full_judgement extends AppCompatActivity {
 
         String [] arrOfStr = link.split("com", 2);
 
-        String mera_link = arrOfStr[0]+"com/hviewer";
+        mera_link = arrOfStr[0]+"com/hviewer";
         String[] fir_mera_link = arrOfStr[1].split("/myadj");
         mera_link = mera_link+fir_mera_link[1]+"&zm=";
         webSettings.setJavaScriptEnabled(true);
+        webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl(mera_link);
         webView.setFindListener(new WebView.FindListener() {
