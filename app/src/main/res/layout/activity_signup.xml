@@ -107,7 +107,7 @@
             android:textColorHint="@color/colorPrimaryDark"
             android:layout_marginBottom="8dp">
 
-            <com.example.hp.adjonline.CountrySpinner
+            <com.example.adjonline.mojitolabs.CountrySpinner
                 android:id="@+id/spinnerCountry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
