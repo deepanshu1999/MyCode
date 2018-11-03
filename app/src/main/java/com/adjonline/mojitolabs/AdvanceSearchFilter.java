@@ -31,6 +31,7 @@ public class AdvanceSearchFilter extends AppCompatActivity {
     Spinner typespinner,yearspinner,monthspinner;
     Button button;
     Toolbar toolbar;
+    String st="0";
     public static List<Post> posts = new ArrayList<Post>();
 
     public static String Result=null;
@@ -39,7 +40,7 @@ public class AdvanceSearchFilter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advance_search_filter);
-
+        st="0";
         toolbar = (Toolbar)findViewById(R.id.filtertoolbar);
         toolbar.setTitle("Document");
         toolbar.setTitleTextAppearance(this,R.style.amaticboldColor);
@@ -133,11 +134,14 @@ public class AdvanceSearchFilter extends AppCompatActivity {
             //AdvanceSearch.clearpost();
             //AdvanceSearch.addall(posts);
             Intent i=new Intent();
+            st="1";
+            i.putExtra("TAG",st);
             i.putExtra("INPUTTEXT",AdvanceSearchFilter.this.getIntent().getStringExtra("INPUTTEXT"));
             i.putExtra("CALLER",AdvanceSearch.ADVANCESEARCH);
             progressDialog.dismiss();
             if(s==null){
                 Toast.makeText(AdvanceSearchFilter.this,"No Result",Toast.LENGTH_SHORT).show();
+                st="0";
             }
             else{
                 finish();

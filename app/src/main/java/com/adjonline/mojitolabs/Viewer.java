@@ -25,6 +25,7 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class Viewer extends AppCompatActivity {
     RecyclerView recyclerView;
+    TextView numView;
     List<ListData> data;
     Adapter  mAdapter;
     String res;
@@ -74,7 +75,7 @@ public class Viewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewer);
-
+        numView=findViewById(R.id.textView2);
         recyclerView = findViewById(R.id.viewerid);
         toolbar = findViewById(R.id.result);
         filterButton=findViewById(R.id.filterButton);
@@ -100,6 +101,7 @@ public class Viewer extends AppCompatActivity {
         final String Tag=getIntent().getStringExtra("CALLER");
         if (Tag.equals(CitationSearch.CITATION)) {
             res = CitationSearch.Res;
+            numView.setVisibility(View.GONE);
             filterButton.setVisibility(View.GONE);
             try {
 
@@ -134,6 +136,7 @@ public class Viewer extends AppCompatActivity {
             }
         } else if (Tag.equals(DateSearch.DATESEARCH)) {
             res = DateSearch.Res;
+            numView.setVisibility(View.GONE);
             filterButton.setVisibility(View.GONE);
             try {
 
@@ -167,6 +170,7 @@ public class Viewer extends AppCompatActivity {
             }
         } else if (Tag.equals(PartySearch.PARTYSEARCH)) {
             String t1, t2, t3;
+            numView.setVisibility(View.GONE);
             filterButton.setVisibility(View.GONE);
             //Log.d("MAGGU",Integer.toString(PartySearch.posts.size()));
             for (int i = 0; i <PartySearch.posts.size(); i++) {
@@ -198,8 +202,10 @@ public class Viewer extends AppCompatActivity {
 //                recyclerViewPositionHelper.
         } else if (Tag.equals(AdvanceSearch.ADVANCESEARCH)) {
             String t1, t2, t3;
+            //String tag=getIntent().getStringExtra("TAG");
             inputtext=getIntent().getStringExtra("INPUTTEXT");
             Log.e("SEARCHTEXTVIEWER",inputtext);
+            numView.setText(inputtext + "  ("+ AdvanceSearch.posts.size()+")");
             filterButton.setVisibility(View.VISIBLE);
             //Log.e("MAGGU", "WHy i am herer");
             Log.e("Entries Before",Integer.toString(AdvanceSearch.posts.size()));
@@ -298,6 +304,7 @@ public class Viewer extends AppCompatActivity {
                 Intent i=new Intent(Viewer.this,AdvanceSearchFilter.class);
                 i.putExtra("INPUTTEXT",getIntent().getStringExtra("INPUTTEXT"));
                 Viewer.this.startActivityForResult(i,RESULT_OK);
+                numView.setVisibility(View.GONE);
             }
         });
     }

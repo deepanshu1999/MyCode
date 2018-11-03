@@ -76,7 +76,7 @@ public class activity_full_judgement extends AppCompatActivity {
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setUseWideViewPort(true);
-        webView.getSettings().setTextSize(WebSettings.TextSize.LARGEST);
+        webView.getSettings().setTextSize(WebSettings.TextSize.LARGEST );
         webView.getSettings().setBuiltInZoomControls(true);
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient(){
