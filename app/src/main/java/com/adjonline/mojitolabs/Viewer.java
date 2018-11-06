@@ -29,6 +29,7 @@ public class Viewer extends AppCompatActivity {
     List<ListData> data;
     Adapter  mAdapter;
     String res;
+
     JSONArray jArray;
     String inputtext;
     Toolbar toolbar;
@@ -39,7 +40,8 @@ public class Viewer extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent datar) {
         super.onActivityResult(requestCode, resultCode, datar);
         String t1, t2, t3;
-
+        numView.setVisibility(View.VISIBLE);
+        numView.setText(inputtext + "  ("+ AdvanceSearchFilter.posts.size()+")");
         filterButton.setVisibility(View.VISIBLE);
         data.clear();
         Log.e("Entries After",Integer.toString(AdvanceSearchFilter.posts.size()));
@@ -303,7 +305,9 @@ public class Viewer extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i=new Intent(Viewer.this,AdvanceSearchFilter.class);
                 i.putExtra("INPUTTEXT",getIntent().getStringExtra("INPUTTEXT"));
+                data.clear();
                 Viewer.this.startActivityForResult(i,RESULT_OK);
+
                 numView.setVisibility(View.GONE);
             }
         });

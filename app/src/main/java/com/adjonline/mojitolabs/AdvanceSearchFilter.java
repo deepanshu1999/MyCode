@@ -65,12 +65,12 @@ public class AdvanceSearchFilter extends AppCompatActivity {
         ArrayList<String> types=new ArrayList<>();
         ArrayList<String> years=new ArrayList<>();
         ArrayList<String> months=new ArrayList<>();
-
+        types.add("All");
         types.add("SB");types.add("DB");types.add("FB");types.add("SC");
-        String str[]={"January","February","March","April","May","June","July","August","September","October","November","December"};
+        String str[]={"All","January","February","March","April","May","June","July","August","September","October","November","December"};
         months.addAll(Arrays.asList(str));
         final String[] values3 =
-                {"2005", "2006", "2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018"};
+                {"All","2005", "2006", "2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018"};
         years.addAll(Arrays.asList(values3));
 
         typespinner=findViewById(R.id.typespinner);
@@ -98,7 +98,15 @@ public class AdvanceSearchFilter extends AppCompatActivity {
                 String TYPE=typespinner.getSelectedItem().toString();
                 String MONTH=monthspinner.getSelectedItem().toString();
                 String YEAR=yearspinner.getSelectedItem().toString();
-
+                if(TYPE.equals("All")){
+                    TYPE="not";
+                }
+                if(MONTH.equals("All")){
+                    MONTH="not";
+                }
+                if(YEAR.equals("All")){
+                    YEAR="not";
+                }
                 String URL="http://adjonline.com/mojito/advfilter.php?inputtext="+INPUTTEXT
                         +"&year="+YEAR
                         +"&month="+MONTH
@@ -143,9 +151,8 @@ public class AdvanceSearchFilter extends AppCompatActivity {
                 Toast.makeText(AdvanceSearchFilter.this,"No Result",Toast.LENGTH_SHORT).show();
                 st="0";
             }
-            else{
-                finish();
-            }
+            finish();
+
         }
 
         @Override
