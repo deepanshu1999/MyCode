@@ -32,6 +32,10 @@ public class AdvanceSearchFilter extends AppCompatActivity {
     Button button;
     Toolbar toolbar;
     String st="0";
+    public static int TypeDef=0;
+    public static int YearDef=0;
+    public static int MonthDef=0;
+
     public static List<Post> posts = new ArrayList<Post>();
 
     public static String Result=null;
@@ -89,7 +93,9 @@ public class AdvanceSearchFilter extends AppCompatActivity {
         typespinner.setAdapter(typeadapter);
         yearspinner.setAdapter(yearadapter);
         monthspinner.setAdapter(monthadapter);
-
+        typespinner.setSelection(TypeDef);
+        monthspinner.setSelection(MonthDef);
+        yearspinner.setSelection(YearDef);
 
         button=findViewById(R.id.applyfilterbutton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +113,9 @@ public class AdvanceSearchFilter extends AppCompatActivity {
                 if(YEAR.equals("All")){
                     YEAR="not";
                 }
+                TypeDef=typespinner.getSelectedItemPosition();
+                MonthDef=monthspinner.getSelectedItemPosition();
+                YearDef=yearspinner.getSelectedItemPosition();
                 String URL="http://adjonline.com/mojito/advfilter.php?inputtext="+INPUTTEXT
                         +"&year="+YEAR
                         +"&month="+MONTH
@@ -177,7 +186,6 @@ public class AdvanceSearchFilter extends AppCompatActivity {
                 Log.e("IIP","OK2");
                 Gson gson = gsonBuilder.create();
                 Log.e("IIP","OK3");
-                posts.clear();
                 Log.d("IIP",Integer.toString(posts.size()));
                 posts = Arrays.asList(gson.fromJson(reader, Post[].class));
                 content.close();
