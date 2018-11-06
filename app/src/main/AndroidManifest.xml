@@ -11,6 +11,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/lambo" />
         <activity android:name="com.adjonline.mojitolabs.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
