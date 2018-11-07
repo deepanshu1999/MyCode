@@ -29,7 +29,7 @@ public class Viewer extends AppCompatActivity {
     List<ListData> data;
     Adapter  mAdapter;
     String res;
-
+    public static boolean isfilter=false;
     JSONArray jArray;
     String inputtext;
     Toolbar toolbar;
@@ -70,7 +70,7 @@ public class Viewer extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Viewer.this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(mAdapter);
-
+        isfilter=true;
     }
 
     @Override
@@ -243,7 +243,12 @@ public class Viewer extends AppCompatActivity {
                             JSONObject msjsonobject = null;
                             String link = null;
                             Intent intentBundle = new Intent(Viewer.this, activity_full_judgement.class);
-                            if (Tag.equals(AdvanceSearch.ADVANCESEARCH)) {
+                            if(isfilter==true){
+                                link=AdvanceSearchFilter.posts.get(position).link;
+                                intentBundle.putExtra("CALLER",AdvanceSearch.ADVANCESEARCH);
+                                intentBundle.putExtra("INPUTTEXT",inputtext);
+                            }
+                            else if (Tag.equals(AdvanceSearch.ADVANCESEARCH)) {
                                 Log.d("ABS","BC yaha kaise a gya");
                                 link = AdvanceSearch.posts.get(position).link;
                                 intentBundle.putExtra("CALLER",AdvanceSearch.ADVANCESEARCH);

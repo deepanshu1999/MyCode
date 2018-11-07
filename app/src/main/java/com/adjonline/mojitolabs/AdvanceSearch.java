@@ -95,6 +95,7 @@ public class AdvanceSearch extends AppCompatActivity {
             Intent i=new Intent(AdvanceSearch.this,Viewer.class);
             i.putExtra("INPUTTEXT",editText.getText().toString());
             i.putExtra("CALLER",AdvanceSearch.ADVANCESEARCH);
+            Viewer.isfilter=false;
             progressDialog.dismiss();
             if(s==null){
                 Toast.makeText(AdvanceSearch.this,"No Result",Toast.LENGTH_SHORT).show();

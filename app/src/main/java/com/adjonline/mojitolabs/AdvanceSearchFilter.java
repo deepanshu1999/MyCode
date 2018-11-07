@@ -152,6 +152,7 @@ public class AdvanceSearchFilter extends AppCompatActivity {
             //AdvanceSearch.addall(posts);
             Intent i=new Intent();
             st="1";
+
             i.putExtra("TAG",st);
             i.putExtra("INPUTTEXT",AdvanceSearchFilter.this.getIntent().getStringExtra("INPUTTEXT"));
             i.putExtra("CALLER",AdvanceSearch.ADVANCESEARCH);
