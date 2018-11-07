@@ -305,7 +305,7 @@ public class Viewer extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i=new Intent(Viewer.this,AdvanceSearchFilter.class);
                 i.putExtra("INPUTTEXT",getIntent().getStringExtra("INPUTTEXT"));
-                data.clear();
+                //data.clear();
                 Viewer.this.startActivityForResult(i,RESULT_OK);
 
                 numView.setVisibility(View.GONE);

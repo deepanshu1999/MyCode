@@ -244,18 +244,7 @@ public class activity_full_judgement extends AppCompatActivity {
         webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl(mera_link);
-        webView.setFindListener(new WebView.FindListener() {
-            @Override
-            public void onFindResultReceived(int activeMatchOrdinal, int numberOfMatches, boolean isDoneCounting) {
-                if (isDoneCounting) {
-                    if (numberOfMatches > 0) {
-                    }
-                    //here we know the previous find finished, so its safe to start another
 
-                }
-            }
-
-        });
         if(getIntent().hasExtra("CALLER")) {
             webView.findAllAsync(searchtext);
         }
