@@ -22,6 +22,7 @@ import android.print.PrintDocumentAdapter;
 import android.print.PrintJob;
 import android.print.PrintManager;
 //import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -69,8 +70,8 @@ public class activity_full_judgement extends AppCompatActivity {
     public ImageButton imageButton;
     String searchtext;
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public  void createWebPagePrint(WebView webView) {
+   // @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+   /* public  void createWebPagePrint(WebView webView) {
         PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
         PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter();
         String jobName = "ADJ" + " Document";
@@ -87,9 +88,17 @@ public class activity_full_judgement extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Printing Cancelled", Toast.LENGTH_LONG).show();
             }
         // Save the job object for later status checking
+    }*/
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+            new DownloadFile().execute(printlink);
+        }
+
+
     }
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -166,7 +175,16 @@ public class activity_full_judgement extends AppCompatActivity {
         printButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DownloadFile().execute(printlink);
+                if (ContextCompat.checkSelfPermission(activity_full_judgement.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(activity_full_judgement.this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+
+                }
+                else{
+                    new DownloadFile().execute(printlink);
+                }
+
             }
         });
         webView =findViewById(R.id.fullJudgment);
@@ -376,14 +394,7 @@ public class activity_full_judgement extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String fileUrl = strings[0];
-            if (ContextCompat.checkSelfPermission(activity_full_judgement.this, Manifest.permission.WRITE_CALENDAR)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity_full_judgement.this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-                }
-                else{
-                return null;
-            }
+
             String fileName = "ADJTEMPPDF.pdf";
             String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
             File folder = new File(extStorageDirectory);
@@ -397,10 +408,6 @@ public class activity_full_judgement extends AppCompatActivity {
             }catch (IOException e){
                 e.printStackTrace();
             }
-            downloadFile(fileUrl, pdfFile);
-            return "DONE";
-        }
-        public void downloadFile(String fileUrl, File directory){
             try {
 
                 URL url = new URL(fileUrl);
@@ -408,7 +415,7 @@ public class activity_full_judgement extends AppCompatActivity {
                 urlConnection.connect();
 
                 InputStream inputStream = urlConnection.getInputStream();
-                FileOutputStream fileOutputStream = new FileOutputStream(directory);
+                FileOutputStream fileOutputStream = new FileOutputStream(pdfFile);
                 int totalSize = urlConnection.getContentLength();
 
                 byte[] buffer = new byte[1024*1024];
@@ -424,6 +431,8 @@ public class activity_full_judgement extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return "DONE";
         }
+
     }
 }
