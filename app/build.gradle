@@ -7,8 +7,8 @@ android {
         applicationId "com.adjonline.mojitolabs"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 6
-        versionName "6.0"
+        versionCode 12
+        versionName "7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

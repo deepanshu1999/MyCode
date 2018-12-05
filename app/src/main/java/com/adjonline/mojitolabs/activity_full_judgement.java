@@ -237,15 +237,19 @@ public class activity_full_judgement extends AppCompatActivity {
 
         String [] arrOfStr = link.split("com", 2);
 
-        mera_link = arrOfStr[0]+"com/hviewer";
+        mera_link = arrOfStr[0]+"com/user/hviewer";
         String[] fir_mera_link = arrOfStr[1].split("/myadj");
-        mera_link = mera_link+fir_mera_link[1]+"&zm=";
+        mera_link = mera_link+fir_mera_link[1];
         webSettings.setJavaScriptEnabled(true);
+        Log.e("MYJSON1",mera_link);
         webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl(mera_link);
 
         if(getIntent().hasExtra("CALLER")) {
+            if(searchtext.charAt(0)=='\"'){
+                searchtext=searchtext.substring(1,searchtext.length()-1);
+            }
             webView.findAllAsync(searchtext);
         }
 

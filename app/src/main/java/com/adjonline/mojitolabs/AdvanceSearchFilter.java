@@ -93,9 +93,10 @@ public class AdvanceSearchFilter extends AppCompatActivity {
         typespinner.setAdapter(typeadapter);
         yearspinner.setAdapter(yearadapter);
         monthspinner.setAdapter(monthadapter);
+        if(Viewer.isfilter){
         typespinner.setSelection(TypeDef);
         monthspinner.setSelection(MonthDef);
-        yearspinner.setSelection(YearDef);
+        yearspinner.setSelection(YearDef);}
 
         button=findViewById(R.id.applyfilterbutton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -113,13 +114,14 @@ public class AdvanceSearchFilter extends AppCompatActivity {
                 if(YEAR.equals("All")){
                     YEAR="not";
                 }
+
                 TypeDef=typespinner.getSelectedItemPosition();
                 MonthDef=monthspinner.getSelectedItemPosition();
                 YearDef=yearspinner.getSelectedItemPosition();
                 String URL="http://adjonline.com/mojito/advfilter.php?inputtext="+INPUTTEXT
                         +"&year="+YEAR
                         +"&month="+MONTH
-                        +"&typetext="+TYPE;
+                        +"&type="+TYPE;
                 Log.d("FILTERCALL",URL);
                 SendAdvanceFilterRequest sendAdvanceFilterRequest=new SendAdvanceFilterRequest();
                 sendAdvanceFilterRequest.execute(URL);
@@ -156,11 +158,13 @@ public class AdvanceSearchFilter extends AppCompatActivity {
             i.putExtra("TAG",st);
             i.putExtra("INPUTTEXT",AdvanceSearchFilter.this.getIntent().getStringExtra("INPUTTEXT"));
             i.putExtra("CALLER",AdvanceSearch.ADVANCESEARCH);
+
             progressDialog.dismiss();
             if(s==null){
-                Toast.makeText(AdvanceSearchFilter.this,"No Result",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdvanceSearchFilter.this,"No Result!",Toast.LENGTH_SHORT).show();
                 st="0";
             }
+            setResult(99,i);
             finish();
 
         }

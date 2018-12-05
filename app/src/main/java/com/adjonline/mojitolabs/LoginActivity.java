@@ -170,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
-
+                Log.e("CONN","reached");
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
@@ -179,9 +179,9 @@ public class LoginActivity extends AppCompatActivity {
                 writer.flush();
                 writer.close();
                 os.close();
-
+                Log.e("SEE","dekhe");
                 int responseCode = conn.getResponseCode();
-
+                Log.e("RCODE",Integer.toString(responseCode));
                 if (responseCode == HttpsURLConnection.HTTP_OK) {
 
                     BufferedReader in = new BufferedReader(
@@ -189,14 +189,13 @@ public class LoginActivity extends AppCompatActivity {
                                     conn.getInputStream()));
                     StringBuffer sb = new StringBuffer("");
                     String line = "";
-
+                Log.e("SEE",in.toString());
+                Log.e("SEEWHATS",in.readLine());
                     while ((line = in.readLine()) != null) {
-
                         sb.append(line);
                         break;
                     }
                     Log.e("INPUT",sb.toString());
-
                     in.close();
                     return sb.toString();
 
@@ -204,6 +203,8 @@ public class LoginActivity extends AppCompatActivity {
                     return new String("false : " + responseCode);
                 }
             } catch (Exception e) {
+
+                e.printStackTrace();
                 return new String("Exception: " + e.getMessage());
 
             }

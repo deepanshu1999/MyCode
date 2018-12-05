@@ -39,11 +39,13 @@ public class Viewer extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent datar) {
         super.onActivityResult(requestCode, resultCode, datar);
+        if(resultCode==99){
         String t1, t2, t3;
         numView.setVisibility(View.VISIBLE);
         numView.setText(inputtext + "  ("+ AdvanceSearchFilter.posts.size()+")");
         filterButton.setVisibility(View.VISIBLE);
-        data.clear();
+        List<ListData> dataholder=new ArrayList<>();
+        data=dataholder;
         Log.e("Entries After",Integer.toString(AdvanceSearchFilter.posts.size()));
         //Log.e("MAGGU", "WHy i am herer");
         if(AdvanceSearchFilter.posts.size()==0){
@@ -70,7 +72,7 @@ public class Viewer extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Viewer.this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(mAdapter);
-        isfilter=true;
+        isfilter=true;}
     }
 
     @Override
@@ -110,6 +112,7 @@ public class Viewer extends AppCompatActivity {
                 jArray = new JSONArray(res);
                 Log.d(TAG, "onCreate: ddsdsdsdsdsdsds " + res);
                 String t1, t2, t3;
+                Log.e("MYJSON",jArray.get(0).toString());
                 // Extract data from json and store into ArrayList as class objects
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
@@ -310,10 +313,8 @@ public class Viewer extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i=new Intent(Viewer.this,AdvanceSearchFilter.class);
                 i.putExtra("INPUTTEXT",getIntent().getStringExtra("INPUTTEXT"));
-                //data.clear();
                 Viewer.this.startActivityForResult(i,RESULT_OK);
-
-                numView.setVisibility(View.GONE);
+                //numView.setVisibility(View.GONE);
             }
         });
     }

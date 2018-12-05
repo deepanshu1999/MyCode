@@ -52,9 +52,10 @@
             android:layout_weight="1"
             />
         <Spinner
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minWidth="150dp"
             android:id="@+id/volumeyearspinner"
             android:layout_marginLeft="10dp"
             />
@@ -69,15 +70,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Volume No."
+            android:text="Volume No.  "
             android:textSize="18sp"
             android:id="@+id/volumenotext"
             android:layout_weight="1"
             />
         <Spinner
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minWidth="150dp"
             android:id="@+id/volumenospinner"
             android:layout_marginLeft="10dp"
             />

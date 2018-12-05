@@ -67,7 +67,7 @@ public class AdvanceSearch extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               String URL="http://adjonline.com/mojito/advfilter.php?inputtext="+editText.getText().toString();
+               String URL="http://adjonline.com/mojito/advsearchnew.php?inputtext="+editText.getText().toString();
                SendAdvanceRequest sendAdvanceRequest=new SendAdvanceRequest();
                sendAdvanceRequest.execute(URL);
 
