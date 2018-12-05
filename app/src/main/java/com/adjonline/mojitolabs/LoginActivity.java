@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String SharedPreferenceTag="LoginStatus";
     public static final String SP_Status_TAG="LOGIN";
     EditText emailText, passwordText;
+
     Button loginButton;
     TextView signupLink;
     private static final String URL_Login = "http://adjonline.com/mojito/detailsapi.php?currentpage=1";
@@ -221,6 +222,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (jsonObject.has("loginid")) {
                     id = jsonObject.getString("loginid");
+                }
+                if(jsonObject.has("name")){
+                    SharedPreferences sharedPreferences=getSharedPreferences("USER",MODE_PRIVATE);
+                    sharedPreferences.edit().putString("NAME",jsonObject.getString("name")).apply();
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

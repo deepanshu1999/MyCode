@@ -1,19 +1,27 @@
 package com.adjonline.mojitolabs;
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.audiofx.EnvironmentalReverb;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.os.CancellationSignal;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+import android.print.PageRange;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintJob;
 import android.print.PrintManager;
+//import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -32,14 +40,28 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import okhttp3.internal.http2.Settings;
 
 public class activity_full_judgement extends AppCompatActivity {
     private Toolbar toolbar;
     private String link;
     private WebView webView;
+    ProgressDialog progDailog=null;
     String mera_link=null;
     ImageButton printButton;
+    String printlink=null;
+    String FILEPATH;
+    String Username="NO NAME";
     private int mCurrentSearchIndex = -1;
 
     private static final String TAG = "activity_full_judgement";
@@ -54,6 +76,7 @@ public class activity_full_judgement extends AppCompatActivity {
         String jobName = "ADJ" + " Document";
         PrintAttributes.Builder builder = new PrintAttributes.Builder();
         builder.setMediaSize(PrintAttributes.MediaSize.ISO_A4);
+        progDailog.dismiss();
         PrintJob printJob = printManager.print(jobName, printAdapter, builder.build());
 
         if(printJob.isCompleted()){
@@ -72,17 +95,23 @@ public class activity_full_judgement extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progDailog= new ProgressDialog(activity_full_judgement.this,
+                R.style.AppTheme_Dark_Dialog);
+        progDailog.setMessage("Loading...");
+        progDailog.setIndeterminate(true);
         if(getIntent().hasExtra("CALLER") && getIntent().getStringExtra("CALLER").equals(AdvanceSearch.ADVANCESEARCH)){
         searchtext=getIntent().getStringExtra("INPUTTEXT");
-        Log.e("SEARCHTEXT",searchtext);
         }
+        SharedPreferences sharedPreferences=getSharedPreferences("USER",MODE_PRIVATE);
+        Username=sharedPreferences.getString("NAME","Deepanshu");
         setContentView(R.layout.activity_full_judgement);
         imageButton=findViewById(R.id.shareButton);
         printButton=findViewById(R.id.printButton);
         Intent intentExtra=getIntent();
         link=intentExtra.getStringExtra("link");
+
+        printlink=intentExtra.getStringExtra("print")+Username.replaceAll("\\s+","%20");
         final String subject=intentExtra.getStringExtra("subject");
-        Log.e("LINK",link);
         toolbar =findViewById(R.id.Resulttoolbar);
         toolbar.setTitle("Document");
         toolbar.setTitleTextAppearance(this,R.style.amaticboldColor);
@@ -101,16 +130,20 @@ public class activity_full_judgement extends AppCompatActivity {
                 finish();
             }
         });
-        printButton.setOnClickListener(new View.OnClickListener() {
+        /*printButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 WebView web2=new WebView(activity_full_judgement.this);
-                web2.loadUrl(mera_link);
-                web2.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
+                web2.loadUrl(printlink);
+
+                SharedPreferences sharedPreferences=getSharedPreferences("USER",MODE_PRIVATE);
+
+
+
+                //web2.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
                 web2.setWebViewClient(new WebViewClient(){
-                    final ProgressDialog progDailog = new ProgressDialog(activity_full_judgement.this,
-                            R.style.AppTheme_Dark_Dialog);
+
                     @Override
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
                         super.onPageStarted(view, url, favicon);
@@ -127,6 +160,13 @@ public class activity_full_judgement extends AppCompatActivity {
                 });
                 createWebPagePrint(web2);
 
+            }
+        });*/
+
+        printButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DownloadFile().execute(printlink);
             }
         });
         webView =findViewById(R.id.fullJudgment);
@@ -297,5 +337,93 @@ public class activity_full_judgement extends AppCompatActivity {
         }
     }
 
+    private class DownloadFile extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            progDailog.show();
+        }
 
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+            if(aVoid.equals("DONE")){
+               // PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+                //PdfDocumentAdapter printAdapter = webView.createPrintDocumentAdapter();
+                PrintManager printManager=(PrintManager) getSystemService(Context.PRINT_SERVICE);
+                try
+                { String fileName = "ADJTEMPPDF.pdf";
+                    String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                    File folder = new File(extStorageDirectory);
+                    folder.mkdir();
+
+
+                    PrintDocumentAdapter printAdapter = new PdfDocumentAdapter(getApplicationContext(),FILEPATH);
+                    PrintAttributes.Builder newbuilder=new PrintAttributes.Builder();
+                    newbuilder.setMediaSize(PrintAttributes.MediaSize.ISO_A4);
+                    printManager.print("Document"+Username, printAdapter,newbuilder.build());
+
+                }
+                catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            }
+            progDailog.dismiss();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String fileUrl = strings[0];
+            if (ContextCompat.checkSelfPermission(activity_full_judgement.this, Manifest.permission.WRITE_CALENDAR)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity_full_judgement.this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                }
+                else{
+                return null;
+            }
+            String fileName = "ADJTEMPPDF.pdf";
+            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+            File folder = new File(extStorageDirectory);
+            folder.mkdir();
+
+            File pdfFile = new File(folder, fileName);
+            FILEPATH=pdfFile.getAbsolutePath();
+
+            try{
+                pdfFile.createNewFile();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            downloadFile(fileUrl, pdfFile);
+            return "DONE";
+        }
+        public void downloadFile(String fileUrl, File directory){
+            try {
+
+                URL url = new URL(fileUrl);
+                HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+                urlConnection.connect();
+
+                InputStream inputStream = urlConnection.getInputStream();
+                FileOutputStream fileOutputStream = new FileOutputStream(directory);
+                int totalSize = urlConnection.getContentLength();
+
+                byte[] buffer = new byte[1024*1024];
+                int bufferLength = 0;
+                while((bufferLength = inputStream.read(buffer))>0 ){
+                    fileOutputStream.write(buffer, 0, bufferLength);
+                }
+                fileOutputStream.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

@@ -45,6 +45,7 @@ public class Post {
     public String toobottom;
     public String typ;
     public String link;
+    public String print=null;
     public Post(){
 
     }

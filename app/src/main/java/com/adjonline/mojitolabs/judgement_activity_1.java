@@ -94,6 +94,7 @@ public class judgement_activity_1 extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),activity_full_judgement.class);
                 try {
                     intent.putExtra("link",mJsonObject.getString("link"));
+                    intent.putExtra("print",mJsonObject.getString("print"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

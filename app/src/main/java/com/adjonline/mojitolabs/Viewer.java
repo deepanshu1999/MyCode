@@ -40,7 +40,7 @@ public class Viewer extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent datar) {
         super.onActivityResult(requestCode, resultCode, datar);
         if(resultCode==99){
-        String t1, t2, t3;
+        String t1, t2, t3,t4;
         numView.setVisibility(View.VISIBLE);
         numView.setText(inputtext + "  ("+ AdvanceSearchFilter.posts.size()+")");
         filterButton.setVisibility(View.VISIBLE);
@@ -55,7 +55,8 @@ public class Viewer extends AppCompatActivity {
             t1 = AdvanceSearchFilter.posts.get(i).middle;
             t2 = AdvanceSearchFilter.posts.get(i).top;
             t3 = AdvanceSearchFilter.posts.get(i).cita1;
-            ListData listdata = new ListData(t1, t2, t3);
+            t4=AdvanceSearchFilter.posts.get(i).cita1;
+            ListData listdata = new ListData(t1, t2, t3,t4);
 
             data.add(listdata);
             if (i % 10 == 0) {
@@ -111,7 +112,7 @@ public class Viewer extends AppCompatActivity {
 
                 jArray = new JSONArray(res);
                 Log.d(TAG, "onCreate: ddsdsdsdsdsdsds " + res);
-                String t1, t2, t3;
+                String t1, t2, t3,t4;
                 Log.e("MYJSON",jArray.get(0).toString());
                 // Extract data from json and store into ArrayList as class objects
                 for (int i = 0; i < jArray.length(); i++) {
@@ -119,7 +120,8 @@ public class Viewer extends AppCompatActivity {
                     t1 = json_data.getString("2");
                     t2 = json_data.getString("1");
                     t3 = json_data.getString("Citation No");
-                    ListData listdata = new ListData(t1, t2, t3);
+                    t4=json_data.getString("print");
+                    ListData listdata = new ListData(t1, t2, t3,t4);
 
                     //Log.d(TAG, "onPostExecute: pata ni qa problem hai");
                     //Log.d(TAG, json_data.toString());
@@ -147,14 +149,15 @@ public class Viewer extends AppCompatActivity {
 
                 jArray = new JSONArray(res);
                 Log.d(TAG, "onCreate: ddsdsdsdsdsdsds " + res);
-                String t1, t2, t3;
+                String t1, t2, t3,t4;
                 // Extract data from json and store into ArrayList as class objects
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
                     t1 = json_data.getString("2");
                     t2 = json_data.getString("1");
                     t3 = json_data.getString("Citation No");
-                    ListData listdata = new ListData(t1, t2, t3);
+                    t4=json_data.getString("print");
+                    ListData listdata = new ListData(t1, t2, t3,t4);
                     //Log.d(TAG, "onPostExecute: pata ni qa problem hai");
                     //Log.d(TAG, json_data.toString());
                     data.add(listdata);
@@ -174,7 +177,7 @@ public class Viewer extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "No Result", Toast.LENGTH_LONG).show();
             }
         } else if (Tag.equals(PartySearch.PARTYSEARCH)) {
-            String t1, t2, t3;
+            String t1, t2, t3,t4;
             numView.setVisibility(View.GONE);
             filterButton.setVisibility(View.GONE);
             //Log.d("MAGGU",Integer.toString(PartySearch.posts.size()));
@@ -182,7 +185,8 @@ public class Viewer extends AppCompatActivity {
                 t1 = PartySearch.posts.get(i).peti;
                 t2 = PartySearch.posts.get(i).jud;
                 t3 = PartySearch.posts.get(i).cita1;
-                ListData listdata = new ListData(t1, t2, t3);
+                t4 = PartySearch.posts.get(i).print;
+                ListData listdata = new ListData(t1,t2,t3,t4);
                 //Log.d(TAG, "onPostExecute: pata ni qa problem hai");
                 //Log.d(TAG, json_data.toString());
                 data.add(listdata);
@@ -206,7 +210,7 @@ public class Viewer extends AppCompatActivity {
 //                RecyclerViewPositionHelper recyclerViewPositionHelper=new RecyclerViewPositionHelper(recyclerView);
 //                recyclerViewPositionHelper.
         } else if (Tag.equals(AdvanceSearch.ADVANCESEARCH)) {
-            String t1, t2, t3;
+            String t1, t2, t3,t4;
             //String tag=getIntent().getStringExtra("TAG");
             inputtext=getIntent().getStringExtra("INPUTTEXT");
             Log.e("SEARCHTEXTVIEWER",inputtext);
@@ -218,7 +222,8 @@ public class Viewer extends AppCompatActivity {
                 t1 = AdvanceSearch.posts.get(i).middle;
                 t2 = AdvanceSearch.posts.get(i).top;
                 t3 = AdvanceSearch.posts.get(i).cita1;
-                ListData listdata = new ListData(t1, t2, t3);
+                t4 = AdvanceSearch.posts.get(i).print;
+                ListData listdata = new ListData(t1, t2, t3,t4);
 
                 data.add(listdata);
                 if (i % 10 == 0) {
@@ -245,30 +250,35 @@ public class Viewer extends AppCompatActivity {
                             Log.e("ABS","Yaha a gya");
                             JSONObject msjsonobject = null;
                             String link = null;
+                            String print=null;
                             Intent intentBundle = new Intent(Viewer.this, activity_full_judgement.class);
                             if(isfilter==true){
                                 link=AdvanceSearchFilter.posts.get(position).link;
+                                print=AdvanceSearchFilter.posts.get(position).print;
                                 intentBundle.putExtra("CALLER",AdvanceSearch.ADVANCESEARCH);
                                 intentBundle.putExtra("INPUTTEXT",inputtext);
+
                             }
                             else if (Tag.equals(AdvanceSearch.ADVANCESEARCH)) {
                                 Log.d("ABS","BC yaha kaise a gya");
                                 link = AdvanceSearch.posts.get(position).link;
+                                print=AdvanceSearch.posts.get(position).print;
                                 intentBundle.putExtra("CALLER",AdvanceSearch.ADVANCESEARCH);
                                 intentBundle.putExtra("INPUTTEXT",inputtext);
                             }
                             else if (Tag.equals(PartySearch.PARTYSEARCH)) {
                                 Log.d("POSSTAUS","I am here");
                                 link = PartySearch.posts.get(position).link;
+                                print=PartySearch.posts.get(position).print;
                             }
                             else {
-                                    Log.e("WHT","WHT i am here");
                                 try {
                                     msjsonobject = jArray.getJSONObject(position);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                                 try {
+                                    print=msjsonobject.getString("print");
                                     link = msjsonobject.getString("link");
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -294,6 +304,7 @@ public class Viewer extends AppCompatActivity {
                                 //insert the code to get party name in advance search and party search here
                             }
                             intentBundle.putExtra("link", link);
+                            intentBundle.putExtra("print",print);
 
                             //intentBundle.putStringArrayListExtra("dimension2", ((ArrayList) dimension2.get(position))); // Very Very Important To Understand //
                             startActivity(intentBundle);

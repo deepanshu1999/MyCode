@@ -306,15 +306,15 @@ public class fragment1 extends Fragment {
 
             try {
                 JSONArray jArray = new JSONArray(result);
-                String t1,t2,t3;
+                String t1,t2,t3,t4;
                 // Extract data from json and store into ArrayList as class objects
                 for(int i=0;i<jArray.length();i++){
                     JSONObject json_data = jArray.getJSONObject(i);
-
+                    t4=json_data.getString("print");
                     t1=json_data.getString("18");
                     t2=json_data.getString("jud");
                     t3=json_data.getString("dt")+"/"+json_data.getString("mn")+"/"+json_data.getString("yer");
-                    ListData listdata=new ListData(t1,t2,t3);
+                    ListData listdata=new ListData(t1,t2,t3,t4);
                     Log.d(TAG, "onPostExecute: pata ni qa problem hai");
                     data.add(listdata);
                 }
